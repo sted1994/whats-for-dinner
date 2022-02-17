@@ -100,3 +100,23 @@ span{
 .smallBox{
   width:100px;
 }
+
+.recipeText{
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.7rem;
+  width: 75%
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: center;
+}
+
+.italics{
+  font-style: italic;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+}
