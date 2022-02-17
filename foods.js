@@ -8,7 +8,11 @@ var sides = [
   "Caeser Salad",
   "Shrimp Summer Rolls",
   "Garlic Butter Mushrooms",
+<<<<<<< HEAD
   "Hush Puppies"
+=======
+  "Hush Puppies",
+>>>>>>> bfeb7e9dff5698fd39c38f874ac8e623f5d7607b
 ];
 
 var mains = [
@@ -47,3 +51,9 @@ var desserts = [
 "Croissants",
 "Eclairs",
 ];
+<<<<<<< HEAD
+=======
+
+
+var test = "test";
+>>>>>>> bfeb7e9dff5698fd39c38f874ac8e623f5d7607b
