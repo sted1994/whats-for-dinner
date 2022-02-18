@@ -7,45 +7,36 @@ var entireMeal = document.getElementById("entireMeal");
 var crockPot = document.querySelector(".centered")
 
 letsCookBtn.addEventListener("click", showDish);
-addRecipe.addEventListener("click", );
+
 
 function randomDish(array){
-return Math.floor(Math.random() * array.length);
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 function showDish(){
   var dishSelected = document.querySelector('input[name="dishOption"]:checked');
   var clickedBox = dishSelected.value;
-  console.log(clickedBox);
-  if(clickedBox === "side"){
-    console.log(sides[randomDish(sides)])
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${sides[randomDish(sides)]}</p>
-    </div>`
-  }else if(clickedBox === "mains"){
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${mains[randomDish(mains)]}</p>
-    </div>`
-  } else if(clickedBox === "desserts"){
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${desserts[randomDish(desserts)]}</p>
-    </div>`
-  } else if(clickedBox === "entireMeal"){
-    console.log("help")
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${mains[randomDish(mains)]} with a side of ${sides[randomDish(sides)]} and ${sides[randomDish(sides)]} for dessert!</p>
-    </div>`
+  var allDishes ={
+    sides: sides,
+    mains: mains,
+    desserts: desserts,
+    entireMeal: [sides, mains, desserts]
   }
+  var dishToDisplay = randomDish(allDishes[clickedBox])
+  if(clickedBox === "entireMeal"){
+    crockPot.innerHTML = `
+    <div>
+    <p class="italics">You should make:</p>
+    <p class="recipeText">${randomDish(mains)} with a side of ${randomDish(sides)} and ${randomDish(desserts)} for dessert!</p>
+    </div>`
+  } else {
+  crockPot.innerHTML = `
+     <div>
+     <p class="italics">You should make:</p>
+     <p class="recipeText">${dishToDisplay}</p>
+     </div>`;
+   }
 }
 
 function showRecipeForm(){
-
 }
