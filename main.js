@@ -1,15 +1,12 @@
 //~~~~~~~~~~~~~~~~~~~~Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 var letsCookBtn = document.querySelector(".letsCook");
 var addARecipeButton = document.querySelector(".addRecipe");
-var side = document.getElementById("side");
-var mainDish = document.getElementById("mainDish");
-var dessert = document.getElementById("dessert");
-var entireMeal = document.getElementById("entireMeal");
 var crockPot = document.querySelector(".centered");
 var recipeForm = document.querySelector(".addRecipeSection");
 var addNewButton = document.querySelector(".addNewButton");
 var newRecipeType = document.getElementById("recipeType");
 var newRecipeName = document.getElementById("recipeName");
+var recipeText = "";
 var allDishes ={
   sides: sides,
   mains: mains,
@@ -42,23 +39,27 @@ function randomDish(array){
   return array[Math.floor(Math.random() * array.length)];
 }
 
-function showDish(){
+function buildMeal(){
   var dishSelected = document.querySelector('input[name="dishOption"]:checked');
-  var clickedBox = dishSelected.value;
-  var dishToDisplay = randomDish(allDishes[clickedBox]);
-  if(clickedBox === "entireMeal"){
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${randomDish(mains)} with a side of ${randomDish(sides)} and ${randomDish(desserts)} for dessert!</p>
-    </div>`
+  var dishToDisplay = randomDish(allDishes[dishSelected.value]);
+  if(dishSelected.value === "entireMeal"){
+    recipeText= `${randomDish(mains)} with a side of ${randomDish(sides)} and ${randomDish(desserts)} for dessert!`
   } else {
-  crockPot.innerHTML = `
-     <div>
-     <p class="italics">You should make:</p>
-     <p class="recipeText">${dishToDisplay}</p>
-     </div>`
-   }
+    recipeText = dishToDisplay
+  }
+}
+
+function injectHtml(){
+crockPot.innerHTML = `
+<div>
+<p class="italics">You should make:</p>
+<p class="recipeText">${recipeText}</p>
+</div>`
+}
+
+function showDish(){
+  buildMeal();
+  injectHtml();
 }
 
 function showCustomRecipe(){
@@ -66,15 +67,11 @@ function showCustomRecipe(){
   if (!allDishes[newRecipeType.value]){
      allDishes[newRecipeType.value] = [];
      allDishes[newRecipeType.value].unshift(newRecipeName.value);
+  } else {
+    allDishes[newRecipeType.value].unshift(newRecipeName.value);
   }
-  allDishes[newRecipeType.value].unshift(newRecipeName.value);
-
-  crockPot.innerHTML = `
-     <div>
-     <p class="italics">You should make:</p>
-     <p class="recipeText">${newRecipeName.value}</p>
-     </div>`
-
+  recipeText= newRecipeName.value
+  injectHtml()
   hide(recipeForm);
   clearInputFields();
 }
