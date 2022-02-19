@@ -5,9 +5,12 @@ var mainDish = document.getElementById("mainDish");
 var dessert = document.getElementById("dessert");
 var entireMeal = document.getElementById("entireMeal");
 var crockPot = document.querySelector(".centered")
+var recipeForm = document.querySelector(".addRecipeSection")
 
 letsCookBtn.addEventListener("click", showDish);
-
+addRecipe.addEventListener("click", function(){
+  recipeForm.classList.remove("hidden")
+})
 
 function randomDish(array){
   return array[Math.floor(Math.random() * array.length)];
@@ -36,7 +39,4 @@ function showDish(){
      <p class="recipeText">${dishToDisplay}</p>
      </div>`;
    }
-}
-
-function showRecipeForm(){
 }
