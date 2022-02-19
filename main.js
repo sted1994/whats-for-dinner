@@ -1,6 +1,6 @@
 //~~~~~~~~~~~~~~~~~~~~Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 var letsCookBtn = document.querySelector(".letsCook");
-var addRecipe = document.querySelector(".addRecipe");
+var addARecipeButton = document.querySelector(".addRecipe");
 var side = document.getElementById("side");
 var mainDish = document.getElementById("mainDish");
 var dessert = document.getElementById("dessert");
@@ -19,16 +19,23 @@ var allDishes ={
 
 //~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~//
 letsCookBtn.addEventListener("click", showDish);
-addRecipe.addEventListener("click", addNewRecipe)
-addNewButton.addEventListener("click", addNewRecipe)
+addARecipeButton.addEventListener("click", function(){
+  show(recipeForm)
+});
+addNewButton.addEventListener("click", showCustomRecipe);
 
 //~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 function hide(element){
-  element.classList.a("hidden")
+  element.classList.add("hidden");
 }
 
 function show(element){
-  element.classList.remove("hidden")
+  element.classList.remove("hidden");
+}
+
+function clearInputFields(){
+  newRecipeType.value = "";
+  newRecipeName.value = "";
 }
 
 function randomDish(array){
@@ -38,7 +45,7 @@ function randomDish(array){
 function showDish(){
   var dishSelected = document.querySelector('input[name="dishOption"]:checked');
   var clickedBox = dishSelected.value;
-  var dishToDisplay = randomDish(allDishes[clickedBox])
+  var dishToDisplay = randomDish(allDishes[clickedBox]);
   if(clickedBox === "entireMeal"){
     crockPot.innerHTML = `
     <div>
@@ -50,16 +57,24 @@ function showDish(){
      <div>
      <p class="italics">You should make:</p>
      <p class="recipeText">${dishToDisplay}</p>
-     </div>`;
+     </div>`
    }
 }
 
-function addNewRecipe(){
-  show(recipeForm)
+function showCustomRecipe(){
   event.preventDefault();
   if (!allDishes[newRecipeType.value]){
      allDishes[newRecipeType.value] = [];
-     allDishes[newRecipeType.value].unshift(newRecipeName.value)
+     allDishes[newRecipeType.value].unshift(newRecipeName.value);
   }
-  allDishes[newRecipeType.value].unshift(newRecipeName.value)
+  allDishes[newRecipeType.value].unshift(newRecipeName.value);
+
+  crockPot.innerHTML = `
+     <div>
+     <p class="italics">You should make:</p>
+     <p class="recipeText">${newRecipeName.value}</p>
+     </div>`
+
+  hide(recipeForm);
+  clearInputFields();
 }
