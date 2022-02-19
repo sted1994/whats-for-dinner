@@ -1,56 +1,77 @@
+//~~~~~~~~~~~~~~~~~~~~Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 var letsCookBtn = document.querySelector(".letsCook");
-var addRecipe = document.querySelector(".addRecipe");
-var side = document.getElementById("side");
-var mainDish = document.getElementById("mainDish");
-var dessert = document.getElementById("dessert");
-var entireMeal = document.getElementById("entireMeal");
-var crockPot = document.querySelector(".centered")
+var addARecipeButton = document.querySelector(".addRecipe");
+var crockPot = document.querySelector(".centered");
+var recipeForm = document.querySelector(".addRecipeSection");
+var addNewButton = document.querySelector(".addNewButton");
+var newRecipeType = document.getElementById("recipeType");
+var newRecipeName = document.getElementById("recipeName");
+var recipeText = "";
+var allDishes ={
+  sides: sides,
+  mains: mains,
+  desserts: desserts,
+  entireMeal: [sides, mains, desserts]
+};
 
+//~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~//
 letsCookBtn.addEventListener("click", showDish);
-// addRecipe.addEventListener("click", consoleLo);
-// side.addEventListener("click", );
-// mainDish.addEventListener("click", consoleLo);
-// dessert.addEventListener("click", consoleLo);
-// entireMeal.addEventListener("click", consoleLo);
+addARecipeButton.addEventListener("click", function(){
+  show(recipeForm)
+});
+addNewButton.addEventListener("click", showCustomRecipe);
+
+//~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+function hide(element){
+  element.classList.add("hidden");
+}
+
+function show(element){
+  element.classList.remove("hidden");
+}
+
+function clearInputFields(){
+  newRecipeType.value = "";
+  newRecipeName.value = "";
+}
 
 function randomDish(array){
-return Math.floor(Math.random() * array.length);
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+function buildMeal(){
+  var dishSelected = document.querySelector('input[name="dishOption"]:checked');
+  var dishToDisplay = randomDish(allDishes[dishSelected.value]);
+  if(dishSelected.value === "entireMeal"){
+    recipeText= `${randomDish(mains)} with a side of ${randomDish(sides)} and ${randomDish(desserts)} for dessert!`
+  } else {
+    recipeText = dishToDisplay
+  }
+}
+
+function injectHtml(){
+crockPot.innerHTML = `
+<div>
+<p class="italics">You should make:</p>
+<p class="recipeText">${recipeText}</p>
+</div>`
 }
 
 function showDish(){
-  var dishSelected = document.querySelector('input[name="dishOption"]:checked');
-  var clickedBox = dishSelected.value;
-  console.log(clickedBox);
-  if(clickedBox === "side"){
-    console.log(sides[randomDish(sides)])
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${sides[randomDish(sides)]}</p>
-    </div>`
-  }else if(clickedBox === "mains"){
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${mains[randomDish(mains)]}</p>
-    </div>`
-  } else if(clickedBox === "desserts"){
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${desserts[randomDish(desserts)]}</p>
-    </div>`
-  } else if(clickedBox === "entireMeal"){
-    console.log("help")
-    crockPot.innerHTML = `
-    <div>
-    <p class="italics">You should make:</p>
-    <p class="recipeText">${mains[randomDish(mains)]} with a side of ${sides[randomDish(sides)]} and ${sides[randomDish(sides)]} for dessert!</p>
-    </div>`
+  buildMeal();
+  injectHtml();
+}
+
+function showCustomRecipe(){
+  event.preventDefault();
+  if (!allDishes[newRecipeType.value]){
+     allDishes[newRecipeType.value] = [];
+     allDishes[newRecipeType.value].unshift(newRecipeName.value);
+  } else {
+    allDishes[newRecipeType.value].unshift(newRecipeName.value);
   }
-   // crockPot.innerHTML = `
-   // <div style="border: 1px dotted black">
-   // <p class="italics">You should make:</p>
-   // <p class="recipeText"></p>
-   // </div>`
+  recipeText= newRecipeName.value
+  injectHtml()
+  hide(recipeForm);
+  clearInputFields();
 }

@@ -15,7 +15,7 @@
           <p class="optionTitle">What are you looking for?<span>*</span></p>
           <div class="optionSelections">
             <div>
-              <input type="radio" name="dishOption" id="side" value="side">
+              <input type="radio" name="dishOption" id="side" value="sides">
               <label for="side">Side</label>
             </div>
             <div>
@@ -45,7 +45,24 @@
       </div>
     </div>
   </section>
+  <section class="addRecipeSection hidden">
+    <div class="recipeFormSize">
+      <form  class="recipeForm">
+        <div class="recipeFormPadding">
+          <label for="recipeType">Recipe Type:</label>
+          <input type="text" id="recipeType">
+        </div>
+        <div class="recipeFormPadding">
+          <label for="recipeType">Recipe Name:</label>
+          <input type="text" id="recipeName">
+        </div>
+        <div class="recipeFormPadding">
+          <button class="addNewButton">ADD NEW</button>
+        </div>
+      </form>
+    </div>
+  </section>
   </body>
-  <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="foods.js"></script>
+  <script type="text/javascript" src="main.js"></script>
 </html>
