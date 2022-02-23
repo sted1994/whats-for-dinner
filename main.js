@@ -8,10 +8,10 @@ var newRecipeType = document.getElementById("recipeType");
 var newRecipeName = document.getElementById("recipeName");
 var recipeText = "";
 var allDishes ={
-  sides: sides,
-  mains: mains,
-  desserts: desserts,
-  entireMeal: [sides, mains, desserts]
+  "side": sides,
+  "main dish": mains,
+  "dessert": desserts,
+  "entire meal": [sides, mains, desserts]
 };
 
 //~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -42,7 +42,7 @@ function randomDish(array){
 function buildMeal(){
   var dishSelected = document.querySelector('input[name="dishOption"]:checked');
   var dishToDisplay = randomDish(allDishes[dishSelected.value]);
-  if(dishSelected.value === "entireMeal"){
+  if(dishSelected.value === "entire meal"){
     recipeText= `${randomDish(mains)} with a side of ${randomDish(sides)} and ${randomDish(desserts)} for dessert!`
   } else {
     recipeText = dishToDisplay
